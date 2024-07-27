@@ -5,12 +5,15 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 type Props = {
   openModal : boolean
   setOpenModal : Function
+  onDelete: Function
 }
 
-export function DeleteConfirm({openModal, setOpenModal} : Props) {
+export function DeleteConfirm({openModal, setOpenModal, onDelete} : Props) {
+
+  const [loading,setLoading] = useState(false)
+
   return (
     <>
-      <Button onClick={() => setOpenModal(true)}>Toggle modal</Button>
       <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
         <Modal.Header />
         <Modal.Body>
@@ -20,7 +23,12 @@ export function DeleteConfirm({openModal, setOpenModal} : Props) {
               Are you sure you want to delete this user?
             </h3>
             <div className="flex justify-center gap-4">
-              <Button color="failure" onClick={() => setOpenModal(false)}>
+              <Button isProcessing={loading} color="failure" onClick={() => {
+                setLoading(true)
+                onDelete()
+                setLoading(false)
+                setOpenModal(false)
+              }}>
                 {"Yes, I'm sure"}
               </Button>
               <Button color="gray" onClick={() => setOpenModal(false)}>

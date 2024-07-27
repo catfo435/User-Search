@@ -1,7 +1,8 @@
+import { Checkbox } from "flowbite-react";
 import { useEffect, useState } from "react";
 
 export type Employee = {
-    _id: string;
+    _id?: string;
     name: string;
     age: number;
     department: string;
@@ -33,9 +34,9 @@ const EmployeePane = ({employee , checkAll, setCheckedEmployees} : EmployeePaneP
     },[checkAll])
 
     return (
-        <div id={employee._id} className="employeePane grid grid-cols-4 tablet:grid-cols-7 text-xs laptop:text-sm mt-2 h-8">
+        <div id={employee._id} className="employeePane grid grid-cols-4 tablet:grid-cols-7 text-xs laptop:text-sm mt-2 ml-2 h-8">
               <div className="tablet:col-span-2">
-                <input type="checkbox" checked={check} onChange={(e) => {
+                <Checkbox className="rounded-none" color="blue" checked={check} onChange={(e) => {
                   setCheck(e.target.checked)
                   updateCheckedEmployees(e.target.checked)
                 }} />
